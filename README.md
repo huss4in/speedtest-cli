@@ -19,8 +19,6 @@
       <img src="https://img.shields.io/docker/image-size/huss4in7/speedtest-cli/latest?style=social&logo=docker&label=Image Size">
     </a>
 </h1>
-
-<br>
 <h1 align="center">
   <a href="https://www.docker.com/">
     <img alt="Docker" src="https://i.imgur.com/nvTgxg3.png" width="200"/>
@@ -39,20 +37,21 @@
     <img src="https://img.shields.io/github/v/release/huss4in7/speedtest-cli"/>
   </a>
 </h1>
+<br>
 
-### Build:
+### Build ⚒:
 
 ```bash
 buildx.sh
 ```
 
-### Test:
+### Test 🧪:
 
 ```bash
 buildx.sh --test # or -t
 ```
 
-### Deploy:
+### Deploy 🚀:
 
 ```bash
 buildx.sh --push # or -p
@@ -60,7 +59,7 @@ buildx.sh --push # or -p
 
 <br><br>
 
-## Usage
+## Usage ⚙
 
 ```sh
 docker run --rm -ti --net host --name speedtest --init huss4in7/speedtest-cli
@@ -76,7 +75,7 @@ docker run --rm -ti --net host --name speedtest --init huss4in7/speedtest-cli
 
 <br><br>
 
-## To run with **_one_** command
+## To run with **_one_** command ⚙
 
 ### Add [`speedtest`](speedtest) to PATH
 
@@ -100,7 +99,7 @@ speedtest
 
 <br>
 
-## Example
+## Example ⚙
 
 ```sh
 # Print usage information:
@@ -110,7 +109,7 @@ speedtest --help # or -h
 
 <br><br>
 
-# Note
+# Note 📝
 
 This Docker Image uses [**Ookla Speedtest CLI**](https://www.speedtest.net/apps/cli) and automatically accepts Ookla [License](https://www.speedtest.net/about/eula) and [Privacy](https://www.speedtest.net/about/privacy) terms.
 
