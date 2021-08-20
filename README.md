@@ -80,7 +80,7 @@ docker run --rm -ti --net host --name speedtest --init huss4in7/speedtest-cli
 <br>
 
 </details>
-
+<br>
 <details>
 
 <summary>To run with <strong>one command</strong> ⚙</summary>
@@ -117,12 +117,16 @@ speedtest --help # or -h
 
 <br>
 
-# Note 📝
+## Note 📝
 
 This Docker Image uses [**Ookla Speedtest CLI**](https://www.speedtest.net/apps/cli) and automatically accepts Ookla [License](https://www.speedtest.net/about/eula) and [Privacy](https://www.speedtest.net/about/privacy) terms.
 
-## Ookla Speedtest License
+<details>
+
+<summary>Ookla Speedtest License</summary>
 
 This End User License Agreement (”Agreement”) is a binding agreement between you (”End User” or “you”) and Ookla, LLC (”Ookla”). This Agreement governs your use of the Speedtest Software, (including all related documentation, the “Software”). The Software is licensed, not sold, to you.
 
-Your use of this Software is subject to the Terms of Use and Privacy Policy at these URLs: https://www.speedtest.net/about/terms and https://www.speedtest.net/about/privacy.
+Your use of this Software is subject to the Terms of Use and Privacy Policy at these URLs: <br> https://www.speedtest.net/about/terms and https://www.speedtest.net/about/privacy.
+
+</details>
