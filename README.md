@@ -19,45 +19,25 @@
       <img src="https://img.shields.io/docker/image-size/huss4in7/speedtest-cli/latest?style=social&logo=docker&label=Image Size">
     </a>
 </h1>
-<h1 align="center">
+<h2 align="center">
   <a href="https://www.docker.com/">
     <img alt="Docker" src="https://i.imgur.com/nvTgxg3.png" width="200"/>
   </a>
   <a href="https://www.speedtest.net/apps/cli">
     <img alt="Speedtest®" src="https://i.imgur.com/fjCIjum.png" width="200"/>
   </a>
-  <br>
+</h2>
+<p align="center">
   <a href="https://github.com/huss4in7/speedtest-cli/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/huss4in7/speedtest-cli"/>
+    <img src="https://img.shields.io/github/license/huss4in7/speedtest-cli?style=flat-&label=License&logo=paper&labelColor=0b0c1b&color=white"/>
   </a>
   <a href="https://github.com/huss4in7/speedtest-cli/releases">
-    <img src="https://img.shields.io/github/release-date/huss4in7/speedtest-cli"/>
+    <img src="https://img.shields.io/github/release-date/huss4in7/speedtest-cli?style=flat-&label=Release%20Date&labelColor=0b0c1b&color=white"/>
   </a>
   <a href="https://github.com/huss4in7/speedtest-cli/releases">
-    <img src="https://img.shields.io/github/v/release/huss4in7/speedtest-cli"/>
+    <img src="https://img.shields.io/github/v/release/huss4in7/speedtest-cli?style=flat-&label=Release&logo=speedtest&labelColor=0b0c1b&color=white"/>
   </a>
-</h1>
-<br>
-
-### Build ⚒:
-
-```bash
-buildx.sh
-```
-
-### Test 🧪:
-
-```bash
-buildx.sh --test # or -t
-```
-
-### Deploy 🚀:
-
-```bash
-buildx.sh --push # or -p
-```
-
-<br><br>
+</p>
 
 ## Usage ⚙
 
@@ -69,13 +49,41 @@ docker run --rm -ti --net host --name speedtest --init huss4in7/speedtest-cli
 | :----------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------------------------------------------ |
 |                                     `--rm`                                     | Automatically **remove** the container after it exits.                                                                         |
 |                                     `-ti`                                      | Attack to container **terminal** and make it **interactive**.                                                                  |
-|                                  `--net host`                                  | Connect the container to **host** network (for native performance).                                                            |
-|                               `--name speedtest`                               | Assign **speedtest** to the container name                                                                                     |
+|                                  `--net=host`                                  | Connect the container to **host** network (for native performance).                                                            |
+|                               `--name=speedtest`                               | Assign **speedtest** to the container name                                                                                     |
 |                                    `--init`                                    | Use **docker-init** as PID1, to make it possible to kill the process using (ctrl + c) or stop it with (docker stop #container) |
 
-<br><br>
+<br>
 
-## To run with **_one_** command ⚙
+<details>
+
+<summary><strong>Building</strong> ⚒, <strong>Testing</strong> 🧪, and <strong>Deploying</strong> 🚀</summary>
+
+## Build ⚒:
+
+```bash
+./buildx.sh
+```
+
+## Test 🧪:
+
+```bash
+./buildx.sh --test # or -t
+```
+
+## Deploy 🚀:
+
+```bash
+./buildx.sh --push # or -p
+```
+
+<br>
+
+</details>
+
+<details>
+
+<summary>To run with <strong>one command</strong> ⚙</summary>
 
 ### Add [`speedtest`](speedtest) to PATH
 
@@ -97,8 +105,6 @@ chmod +x speedtest
 speedtest
 ```
 
-<br>
-
 ## Example ⚙
 
 ```sh
@@ -107,7 +113,9 @@ speedtest
 speedtest --help # or -h
 ```
 
-<br><br>
+</details>
+
+<br>
 
 # Note 📝
 
