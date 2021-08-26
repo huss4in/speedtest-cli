@@ -39,7 +39,7 @@
   </a>
 </p>
 
-## Usage ⚙
+## ⚙ Usage
 
 ```sh
 docker run -ti --rm --init --net host --name speedtest huss4in7/speedtest-cli --accept-license
@@ -89,7 +89,7 @@ docker run -ti --rm --init --net host --name speedtest huss4in7/speedtest-cli --
 <br>
 <details>
 
-<summary>To run with <strong>one command</strong> ⚙</summary>
+<summary>⚙ To run with <strong>one command</strong></summary>
 
 ### Add [`speedtest`](speedtest) to PATH
 
@@ -123,7 +123,7 @@ speedtest --help # or -h
 
 <br>
 
-## Note 📝
+## 📝 Note
 
 This Docker Image uses [**Ookla Speedtest CLI**](https://www.speedtest.net/apps/cli) and accepts Ookla [License](https://www.speedtest.net/about/eula) and [Privacy](https://www.speedtest.net/about/privacy) terms.
 
