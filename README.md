@@ -42,13 +42,13 @@
 ## Usage ⚙
 
 ```sh
-docker run --rm -ti --init --net host --name speedtest huss4in7/speedtest-cli --accept-license
+docker run -ti --rm --init --net host --name speedtest huss4in7/speedtest-cli --accept-license
 ```
 
 | [`Options`](https://docs.docker.com/engine/reference/commandline/run/#options) | Description                                                                                                                                       |
 | :----------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                                     `--rm`                                     | Automatically **remove** the container after it exits.                                                                                            |
 |                                     `-ti`                                      | Attack to container **terminal** and make it **interactive**.                                                                                     |
+|                                     `--rm`                                     | Automatically **remove** the container after it exits.                                                                                            |
 |                                    `--init`                                    | Use **docker-init** as **PID1**, to make it possible to **kill** the process using (**ctrl + c**) or **stop** it with (**docker stop speedtest**) |
 |                                  `--net=host`                                  | Connect the container to **host network** (for **native performance**).                                                                           |
 |                               `--name=speedtest`                               | Assign **speedtest** to the container **name**                                                                                                    |
@@ -60,13 +60,13 @@ docker run --rm -ti --init --net host --name speedtest huss4in7/speedtest-cli --
 
 <summary><strong>Building</strong> ⚒, <strong>Testing</strong> 🧪, and <strong>Deploying</strong> 🚀</summary>
 
-## Build ⚒:
+## ⚒ Build:
 
 ```bash
 ./buildx.sh
 ```
 
-## Test 🧪:
+## 🧪 Test:
 
 #### Test all platforms:
 ```bash
@@ -77,7 +77,7 @@ docker run --rm -ti --init --net host --name speedtest huss4in7/speedtest-cli --
 ./buildx.sh --test linux/amd64,linux/arm64
 ```
 
-## Deploy 🚀:
+## 🚀 Deploy:
 
 ```bash
 ./buildx.sh --push # or -p
@@ -96,7 +96,7 @@ docker run --rm -ti --init --net host --name speedtest huss4in7/speedtest-cli --
 ```sh
 #!/bin/sh
 
-docker run --rm -ti --init --net host --name speedtest huss4in7/speedtest-cli --accept-license $@
+docker run -ti --rm --init --net host --name speedtest huss4in7/speedtest-cli --accept-license $@
 ```
 
 ### Make it executable
