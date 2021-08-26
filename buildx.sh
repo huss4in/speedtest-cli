@@ -25,6 +25,8 @@ case "$1" in
         printf "\n"
     done
 
+    docker rmi test
+
     failed=$(($len - $passed))
 
     if [ $passed -ne 0 ]; then
@@ -41,7 +43,8 @@ case "$1" in
     docker buildx build . --tag $TAG --platform $PLATFORMS --push
     ;;
 "--help" | "-h")
-    echo "Build, Test, and Deploy
+    printf "
+Build, Test, and Deploy
 
 USAGE:
     buildx.sh [OPTIONS]
@@ -49,7 +52,7 @@ USAGE:
 OPTIONS:
     -t, --test                     Test on all architectures
     -p, --push                     Build (if not cachesd) for all architectures, and Push
-    -h, --help                     Prints help information"
+    -h, --help                     Prints help information\n"
     ;;
 *)
     echo "For help './buildx.sh --help'"
