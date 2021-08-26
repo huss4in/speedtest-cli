@@ -42,16 +42,17 @@
 ## Usage ⚙
 
 ```sh
-docker run --rm -ti --net host --name speedtest --init huss4in7/speedtest-cli
+docker run --rm -ti --init --net host --name speedtest huss4in7/speedtest-cli --accept-license
 ```
 
-| [`Options`](https://docs.docker.com/engine/reference/commandline/run/#options) | Description                                                                                                                    |
-| :----------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------------------------------------------ |
-|                                     `--rm`                                     | Automatically **remove** the container after it exits.                                                                         |
-|                                     `-ti`                                      | Attack to container **terminal** and make it **interactive**.                                                                  |
-|                                  `--net=host`                                  | Connect the container to **host** network (for native performance).                                                            |
-|                               `--name=speedtest`                               | Assign **speedtest** to the container name                                                                                     |
-|                                    `--init`                                    | Use **docker-init** as PID1, to make it possible to kill the process using (ctrl + c) or stop it with (docker stop #container) |
+| [`Options`](https://docs.docker.com/engine/reference/commandline/run/#options) | Description                                                                                                                                       |
+| :----------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+|                                     `--rm`                                     | Automatically **remove** the container after it exits.                                                                                            |
+|                                     `-ti`                                      | Attack to container **terminal** and make it **interactive**.                                                                                     |
+|                                    `--init`                                    | Use **docker-init** as **PID1**, to make it possible to **kill** the process using (**ctrl + c**) or **stop** it with (**docker stop speedtest**) |
+|                                  `--net=host`                                  | Connect the container to **host network** (for **native performance**).                                                                           |
+|                               `--name=speedtest`                               | Assign **speedtest** to the container **name**                                                                                                    |
+|                               `--accept-license`                               | **Accept** Ookla Speedtest **License**                                                                                                            |
 
 <br>
 
@@ -67,8 +68,13 @@ docker run --rm -ti --net host --name speedtest --init huss4in7/speedtest-cli
 
 ## Test 🧪:
 
+#### Test all platforms:
 ```bash
 ./buildx.sh --test # or -t
+```
+#### Test specific platforms:
+```bash
+./buildx.sh --test linux/amd64,linux/arm64
 ```
 
 ## Deploy 🚀:
@@ -90,7 +96,7 @@ docker run --rm -ti --net host --name speedtest --init huss4in7/speedtest-cli
 ```sh
 #!/bin/sh
 
-docker run --rm - ti --net host --name speedtest --init huss4in7/speedtest-cli $@
+docker run --rm -ti --init --net host --name speedtest huss4in7/speedtest-cli --accept-license $@
 ```
 
 ### Make it executable
@@ -105,7 +111,7 @@ chmod +x speedtest
 speedtest
 ```
 
-## Example ⚙
+## Example
 
 ```sh
 # Print usage information:
@@ -119,7 +125,7 @@ speedtest --help # or -h
 
 ## Note 📝
 
-This Docker Image uses [**Ookla Speedtest CLI**](https://www.speedtest.net/apps/cli) and automatically accepts Ookla [License](https://www.speedtest.net/about/eula) and [Privacy](https://www.speedtest.net/about/privacy) terms.
+This Docker Image uses [**Ookla Speedtest CLI**](https://www.speedtest.net/apps/cli) and accepts Ookla [License](https://www.speedtest.net/about/eula) and [Privacy](https://www.speedtest.net/about/privacy) terms.
 
 <details>
 
