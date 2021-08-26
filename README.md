@@ -58,7 +58,7 @@ docker run -ti --rm --init --net host --name speedtest huss4in7/speedtest-cli --
 
 <details>
 
-<summary><strong>Building</strong> ⚒, <strong>Testing</strong> 🧪, and <strong>Deploying</strong> 🚀</summary>
+<summary><strong>⚒ Building</strong>, <strong>🧪 Testing</strong>, and <strong>🚀 Deploying</strong></summary>
 
 ## ⚒ Build:
 
