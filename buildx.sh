@@ -1,7 +1,6 @@
 #!/bin/bash
 
 TAG=huss4in7/speedtest-cli
-
 PLATFORMS=linux/386,linux/amd64,linux/arm64,linux/arm,linux/arm/v6,linux/ppc64le,linux/riscv64,linux/s390x
 
 case "$1" in
@@ -9,11 +8,11 @@ case "$1" in
     # Build for all architectures
     docker buildx build . --tag $TAG --platform $PLATFORMS
     ;;
+
 "--test" | "-t")
 
     case "$2" in
     "") ;;
-
     *)
         PLATFORMS=$2
         ;;
@@ -112,17 +111,19 @@ case "$1" in
     # Build (if not cachesd) for all architectures, and Push
     docker buildx build . --tag $TAG --platform $PLATFORMS --push
     ;;
+
 "--help" | "-h")
     printf "
-Build, Test, and Deploy
+⚒ Build, 🧪 Test, and 🚀 Deploy
 
 USAGE:
     buildx.sh [OPTIONS]
 
 OPTIONS:
-    -t, --test <ARCH>   Test on all architectures
+    -t, --test <ARCH>   Test on <ARCH>/all architectures
     -p, --push          Build (if not cachesd) for all architectures, and Push
-    -h, --help          Prints help information\n"
+    -h, --help          Prints help information
+"
     ;;
 *)
     echo "For help './buildx.sh --help'"
