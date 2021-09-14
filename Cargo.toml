@@ -18,7 +18,7 @@ version = "*"
 version = "*"
 
 [profile.release]
-codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization
-lto = true # Enable Link Time Optimization (LTO)
-opt-level = "z" # Optimize for size.
-panic = "abort" # Abort on Panic
+lto = true        # Enable Link Time Optimization (LTO).
+panic = "abort"   # Abort on Panic.
+opt-level = "z"   # Optimize for size.
+codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization.
