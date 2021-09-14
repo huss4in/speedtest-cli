@@ -52,7 +52,7 @@ case "$1" in
             successful_builds+=(${platforms[$i]})
 
             printf "\n\033[0;33mTesting \033[0;34m$(($i + 1))\033[0;33m/$total_tests: \033[0;35m${platforms[$i]}\033[0m\n"
-            if docker run --rm -ti --init test; then
+            if docker run -ti --rm --init --net host --name speedtest test; then
                 successful_tests+=(${platforms[$i]})
             else
                 failed_tests+=(${platforms[$i]})
