@@ -3,7 +3,7 @@
 TAG="huss4in7/speedtest-cli"
 PLATFORMS="linux/386,linux/amd64,linux/arm64,linux/arm,linux/arm/v6,linux/ppc64le,linux/riscv64,linux/s390x"
 
-ARCH=
+ARCH="x86_64"
 
 case "$1" in
 
@@ -48,7 +48,7 @@ case "$1" in
     for i in "${!platforms[@]}"; do
         printf "\n\033[0;33mBuilding \033[0;36m$(($i + 1))\033[0;33m/$total_tests: \033[0;35m${platforms[$i]}\033[0m\n"
 
-        if docker buildx build . --tag test --platform "${platforms[$i]}" --build-arg ARCH="x86_64" --load; then
+        if docker buildx build . --tag test --platform "${platforms[$i]}" --build-arg ARCH=$ARCH --load; then
             successful_builds+=(${platforms[$i]})
 
             printf "\n\033[0;33mTesting \033[0;34m$(($i + 1))\033[0;33m/$total_tests: \033[0;35m${platforms[$i]}\033[0m\n"
