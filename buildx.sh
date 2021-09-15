@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TAG="huss4in7/speedtest-cli"
-PLATFORMS="linux/386,linux/amd64,linux/arm64,linux/arm,linux/arm/v6,linux/ppc64le,linux/riscv64,linux/s390x"
+PLATFORMS="linux/386,linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6,linux/arm/v5,linux/mips64le,linux/ppc64le,linux/riscv64,linux/s390x"
 
 ARCH="x86_64"
 
@@ -11,11 +11,11 @@ case "$1" in
 
     if [[ "$1" == @('bp'|'-bp') || "$2" == @('push'|'--push'|'-p') ]]; then
         echo "Building and Pushing..."
-        # Build (if not cachesd) for all architectures, and Push
+        # Build (if not cached) for all architectures, and Push
         docker buildx build . --tag $TAG --platform $PLATFORMS --build-arg ARCH=$ARCH --push
     else
         echo "Building..."
-        # Build (if not cachesd) for all architectures
+        # Build (if not cached) for all architectures
         docker buildx build . --tag $TAG --platform $PLATFORMS --build-arg ARCH=$ARCH
     fi
     ;;
@@ -32,7 +32,7 @@ case "$1" in
 
     a=$(echo $(uname --kernel-name) | tr '[:upper:]' '[:lower:]')
 
-    echo "Tesing for: $PLAT"
+    echo "Testing for: $PLAT"
 
     IFS=',' read -ra platforms <<<"$PLAT"
     total_tests=${#platforms[@]}
@@ -134,7 +134,7 @@ USAGE:
 
 OPTIONS:
     -t, --test <ARCH>   Test on <ARCH>/all architectures
-    -p, --push          Build (if not cachesd) for all architectures, and Push
+    -p, --push          Build (if not cached) for all architectures, and Push
     -h, --help          Prints help information
 "
     ;;
