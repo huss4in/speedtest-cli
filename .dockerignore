@@ -3,6 +3,4 @@
 
 # Except
 !Makefile
-!*.c
-!*.h
-!speedtest.tgz
+!src/

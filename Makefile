@@ -33,12 +33,9 @@ $(C_TARGETS): speedtest.c $(MUSL_GCC)
 	$(STRIP) --strip-all --remove-section=.comment '$@'
 
 .PHONY: test
-test: $(C_TARGETS)
-	@for b in $^; do \
-		if [ -n "$$ARCH_TEST" ] && command -v arch-test && arch-test "$$ARCH_TEST"; then \
-			( set -x && "./$$b" ); \
-			( set -x && "./$$b" | grep -q '"'"$$(basename "$$(dirname "$$b")")"'"' ); \
-		else \
-			echo >&2 "warning: $$TARGET_ARCH ($$ARCH_TEST) not supported; skipping test"; \
-		fi; \
-	done
+test: test.c
+	gcc speedtest.c -o test && ./test
+
+.PHONY: tesest
+tesest: test.c
+	gcc test.c -o test && ./test
