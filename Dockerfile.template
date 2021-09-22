@@ -1,5 +1,0 @@
-FROM scratch
-
-COPY ca-certificates.crt speedtest-c /etc/ssl/certs/
-
-ENTRYPOINT ["/etc/ssl/certs/speedtest-c"]

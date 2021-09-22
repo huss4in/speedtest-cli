@@ -1,5 +1,6 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <sys/wait.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -17,98 +18,109 @@ void Exit(char message[])
     exit(1);
 }
 
-int get_content_length(int sock)
+void downloadURL(char domain[], char path[], char name[])
 {
-    int buffer_size = 1024, received, status;
-    char buff[buffer_size], *ptr = buff;
+    int received_size = 0, status = 0, header_size = 0, data_size = 0, data_written = 0;
 
-    for (ptr = buff;; ptr++)
-    {
-        if ((received = recv(sock, ptr, 1, 0)) == -1)
-            Exit("Didn't Receive Response");
+    char request_buffer[1024], header_buffer[1024], data_buffer[1024];
 
-        if (*ptr == '\n' && ptr[-1] == '\r')
-            break;
-    }
-    *ptr = 0, ptr = buff;
-
-    sscanf(ptr, "%*s %d ", &status); // printf("%s\t%d\n", ptr, status);
-
-    for (int i = 0; i < buffer_size; ptr++, i++)
-    {
-        if ((received = recv(sock, ptr, 1, 0)) == -1)
-            Exit("Didn't Receive Response");
-
-        if (ptr[0] == '\n' && ptr[-1] == '\r' && ptr[-2] == '\n' && ptr[-3] == '\r')
-        {
-            *ptr = '\0';
-            break;
-        }
-    }
-
-    sscanf(strstr(buff, "Content-Length:"), "%*s %d", &received);
-
-    printf("\nStatus: %d", status);
-    printf("\nTotal: %d\n\n", received);
-
-    return received;
-}
-
-void download(char domain[], char path[], char file_name[])
-{
-    const short request_length = 512;
-    char request[request_length];
-
-    snprintf(request, request_length, "GET /%s HTTP/1.1\r\nHost: %s\r\n\r\n", path, domain);
-
+    // printf("\nResolving Host IP Address...\n");
     const struct hostent *host_entry = gethostbyname(domain);
-
     if (host_entry == NULL)
         Exit("Couldn't Resolve Host IP");
-
-    if ((SOCKET = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-        Exit("Couldn't Initiate Connection");
+    // printf("Host IP Address Resolved: %X.", host_entry->h_addr);
 
     struct sockaddr_in server_address;
-    server_address.sin_family = 2;                                     // Interne Protocol
-    server_address.sin_port = 20480;                                   // Port (80)
+    server_address.sin_family = AF_INET;                               // Interne Protocol
+    server_address.sin_port = htons(80);                               // Port (80)
     server_address.sin_addr = *((struct in_addr *)host_entry->h_addr); // IP Address
 
-    // printf("Connecting ...\n");
+    // printf("\n\nInitialize Connection...\n");
+    if ((SOCKET = socket(AF_INET, SOCK_STREAM, 0)) == -1)
+        Exit("Couldn't Initiate Connection");
+    // printf("Connection initialized.");
+
+    // printf("\n\nConnection to Host...\n");
     if (connect(SOCKET, (struct sockaddr *)&server_address, sizeof(struct sockaddr)) == -1)
         Exit("Couldn't Connect to Host");
+    // printf("Connected.");
 
-    // printf("Sending data ...\n");
-    if (send(SOCKET, request, strlen(request), 0) == -1)
+    // printf("\n\nSending Request...\n");
+    snprintf(request_buffer, 1024, "GET %s HTTP/1.0\r\n"
+                                   "Host: %s\r\n\r\n",
+             path, domain);
+    // printf("-------------------\n%s\n", request_buffer);
+
+    if (send(SOCKET, request_buffer, strlen(request_buffer), 0) == -1)
         Exit("Couldn't Send Request");
 
-    const int total = get_content_length(SOCKET);
-    if (total)
+    // printf("Receiving Response...\n");
+
+    for (char *ptr = header_buffer;; ptr++)
     {
-        const short buffer_length = 1024;
-        char buffer[buffer_length];
-        int received, written;
+        if ((received_size = recv(SOCKET, ptr, 1, 0)) == -1)
+            Exit("Didn't Receive Response");
 
-        FILE *file = fopen(file_name, "wb");
+        header_size += received_size;
 
-        do
+        if (ptr[-3] == '\r' && ptr[-2] == '\n' && ptr[-1] == '\r' && ptr[0] == '\n')
         {
-            if ((received = recv(SOCKET, buffer, buffer_length, 0)) != -1)
-                fwrite(buffer, 1, received, file);
-            else
-                Exit("Couldn't Download File");
-
-            written += received;
+            ptr[-3] = '\0';
+            break;
         }
-
-        while (written < total);
-
-        printf("Written: %db / %db\n", written, total);
-
-        fclose(file);
     }
 
-    close(SOCKET);
+    // printf("-------------------\n%s\n\n\n", header_buffer);
+    // char *status_line, *data_size_line;
+    // if ((status_line = strstr(header_buffer, "HTTP")) != NULL)
+    //     sscanf(status_line, "%*s %d", &status);
+    // if ((data_size_line = strstr(header_buffer, "Content-Length")) != NULL)
+    //     sscanf(data_size_line, "%*s %d", &data_size);
 
-    printf("Downloaded.\n");
+    FILE *file = fopen(name, "wb");
+
+    while (received_size = recv(SOCKET, data_buffer, 1024, 0))
+    {
+        if (received_size == -1)
+            Exit("Couldn't Download File");
+
+        fwrite(data_buffer, 1, received_size, file);
+
+        // printf("%s", data_buffer);
+        // data_written += received_size;
+    }
+
+    fclose(file);
+
+    // printf("\n\n---------------");
+    // printf("\nStatus:  %d", status);
+    // printf("\nHeader:  %d", header_size);
+    // printf("\nData:    %d", data_size);
+    // printf("\nWritten: %d", data_written);
+    // printf("\n---------------\n");
+
+    // printf("\nDone\n");
+
+    close(SOCKET);
+}
+
+void exctract(char tgz[], char tar[], char file[])
+{
+
+    if (fork() == 0)
+    {
+        printf("\nGZIP");
+        char *args[] = {"./gzip", "-d", tgz, NULL};
+        execv(args[0], args);
+
+        exit(0);
+    }
+    wait(NULL);
+
+    printf("\nTAR");
+
+    char *args[] = {"./tar", "--extract", "--file", tar, file, NULL};
+    execv(args[0], args);
+
+    exit(0);
 }
