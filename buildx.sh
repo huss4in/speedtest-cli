@@ -11,11 +11,11 @@ case "$1" in
 
     if [[ "$1" == @('bp'|'-bp') || "$2" == @('push'|'--push'|'-p') ]]; then
         echo "Building and Pushing..."
-        # Build (if not cachesd) for all architectures, and Push
+        # Build (if not cached) for all architectures, and Push
         docker buildx build . --tag $TAG --platform $PLATFORMS --build-arg ARCH=$ARCH --push
     else
         echo "Building..."
-        # Build (if not cachesd) for all architectures
+        # Build (if not cached) for all architectures
         docker buildx build . --tag $TAG --platform $PLATFORMS --build-arg ARCH=$ARCH
     fi
     ;;
